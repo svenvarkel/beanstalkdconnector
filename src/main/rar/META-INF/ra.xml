@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE connector PUBLIC '-//Sun Microsystems, Inc.//DTD Connector 1.0//EN' 'http://java.sun.com/dtd/connector_1_0.dtd'>
+<connector>
+    <display-name>BeanstalkdConnector</display-name>
+    <description>BeanstalkdConnector</description>
+    <vendor-name>MageFlow</vendor-name>
+    <spec-version>1.0</spec-version>
+    <eis-type>beanstalkd</eis-type>
+    <version>1.0</version>
+    <license>
+        <description>MageFlow EULA</description>
+        <license-required>false</license-required>
+    </license>
+    <resourceadapter>
+        <managedconnectionfactory-class>com.mageflow.beanstalkd.BeanstalkdManagedConnectionFactory</managedconnectionfactory-class>
+        <connectionfactory-interface>com.mageflow.beanstalkd.interfaces.BeanstalkdConnectionFactory</connectionfactory-interface>
+        <connectionfactory-impl-class>com.mageflow.beanstalkd.BeanstalkdConnectionFactoryImpl</connectionfactory-impl-class>
+        <connection-interface>com.mageflow.beanstalkd.interfaces.BeanstalkdConnection</connection-interface>
+        <connection-impl-class>com.mageflow.beanstalkd.BeanstalkdConnectionImpl</connection-impl-class>
+        <transaction-support>NoTransaction</transaction-support>
+        <reauthentication-support>false</reauthentication-support>
+    </resourceadapter>
+</connector>
