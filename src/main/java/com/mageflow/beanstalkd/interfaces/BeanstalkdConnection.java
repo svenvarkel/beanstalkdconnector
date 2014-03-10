@@ -18,10 +18,13 @@ import javax.ejb.Remote;
 @Remote
 public interface BeanstalkdConnection extends Client, AutoCloseable {
 
+    @Override
     public void close();
 
     public Socket getSocket();
 
     public void setSocket(Socket socket);
+
+    public Integer getConnectionId();
 
 }

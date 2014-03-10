@@ -54,7 +54,7 @@ public class BeanstalkdManagedConnectionFactory implements ManagedConnectionFact
 
     @Override
     public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
-        LOG.info("Created managed beanstalkd connection");
+//        LOG.info("Created managed beanstalkd connection");
         return new BeanstalkdManagedConnection(this);
     }
 

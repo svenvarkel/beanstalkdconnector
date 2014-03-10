@@ -8,6 +8,7 @@ package com.mageflow.beanstalkd;
 import com.mageflow.beanstalkd.interfaces.BeanstalkdConnection;
 import com.surftools.BeanstalkClientImpl.ClientImpl;
 import java.net.Socket;
+import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,27 +32,22 @@ public class BeanstalkdConnectionImpl extends ClientImpl implements BeanstalkdCo
      */
     private BeanstalkdManagedConnectionFactory mcf;
     Socket socket = null;
+    private Integer connectionId = 0;
 
     public BeanstalkdConnectionImpl(BeanstalkdManagedConnection mc, BeanstalkdManagedConnectionFactory mcf) {
         super(mcf.getHostname(), mcf.getPort(), mcf.isUseBlockingIO());
         this.setUniqueConnectionPerThread(mcf.isUseUniqueConnectionPerThread());
-
         this.mc = mc;
         this.mcf = mcf;
-//        if (socket == null || socket.isClosed() || !socket.isConnected()) {
-//            try {
-//                socket = new Socket(mcf.getHostname(), mcf.getPort());
-//                socket.setKeepAlive(false);
-//                LOG.info(String.format("ID: %s; Created socket %s:%s", socket.hashCode(), mcf.getHostname(), mcf.getPort()));
-//            } catch (IOException ex) {
-//                LOG.error("Error while connecting to socket", ex);
-//            }
-//        }
+        Random r = new Random();
+        connectionId = r.nextInt((9999 - 1000) + 1) + 1000;
+        LOG.debug(String.format("Created connection #%s", connectionId));
     }
 
     @Override
     public void close() {
         mc.closeHandle(this);
+        super.close();
     }
 
     @Override
@@ -62,6 +58,11 @@ public class BeanstalkdConnectionImpl extends ClientImpl implements BeanstalkdCo
     @Override
     public void setSocket(Socket socket) {
         this.socket = socket;
+    }
+
+    @Override
+    public Integer getConnectionId() {
+        return connectionId;
     }
 
 }

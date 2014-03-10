@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mageflow.beanstalkd;
 
 import com.surftools.BeanstalkClient.Client;
@@ -29,11 +24,11 @@ public class BeanstalkdManagedConnection extends ClientImpl implements javax.res
 
     private static final Logger LOG = Logger.getLogger(BeanstalkdManagedConnection.class);
 
-    private BeanstalkdManagedConnectionFactory mcf;
+    private final BeanstalkdManagedConnectionFactory mcf;
 
     private PrintWriter logWriter;
 
-    private List<ConnectionEventListener> listeners;
+    private final List<ConnectionEventListener> listeners;
 
     private Object connection;
 
@@ -57,13 +52,6 @@ public class BeanstalkdManagedConnection extends ClientImpl implements javax.res
 
     @Override
     public void cleanup() throws ResourceException {
-//        if (this.connection != null && ((BeanstalkdConnectionImpl) this.connection).getSocket() != null) {
-//            int hash = ((BeanstalkdConnectionImpl) this.connection).getSocket().hashCode();
-//            LOG.debug("Closed connection " + hash);
-//            ((BeanstalkdConnectionImpl) this.connection).close();
-//        }
-//        this.connection = null;
-//        ((BeanstalkdConnectionImpl) this.connection).close();
 
     }
 
@@ -115,17 +103,15 @@ public class BeanstalkdManagedConnection extends ClientImpl implements javax.res
     }
 
     public void closeHandle(BeanstalkdConnectionImpl handle) {
-//        try {
-//            if (handle.getSocket() instanceof Socket) {
-//                handle.getSocket().close();
-//            }
-//        } catch (IOException ex) {
-//            LOG.error("Error while closing connection", ex);
-//        }
-        ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.CONNECTION_CLOSED);
-        event.setConnectionHandle(handle);
-        for (ConnectionEventListener cel : listeners) {
-            cel.connectionClosed(event);
+        try {
+            ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.CONNECTION_CLOSED);
+            event.setConnectionHandle(handle);
+            for (ConnectionEventListener cel : listeners) {
+                cel.connectionClosed(event);
+            }
+            LOG.debug(String.format("Closed connection #%s", handle.getConnectionId()));
+        } catch (Exception ex) {
+            LOG.error("Error while closing connection", ex);
         }
     }
 
