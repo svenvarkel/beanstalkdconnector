@@ -1,22 +1,37 @@
 package com.mageflow.beanstalkd;
 
+import com.mageflow.beanstalkd.interfaces.BeanstalkdConnection;
+import com.mageflow.beanstalkd.interfaces.BeanstalkdConnectionFactory;
 import javax.resource.ResourceException;
 import javax.resource.spi.ActivationSpec;
+import javax.resource.spi.AuthenticationMechanism;
 import javax.resource.spi.BootstrapContext;
 import javax.resource.spi.ConfigProperty;
+import javax.resource.spi.ConnectionDefinition;
+import javax.resource.spi.Connector;
 import javax.resource.spi.ResourceAdapter;
 import javax.resource.spi.ResourceAdapterInternalException;
+import javax.resource.spi.TransactionSupport;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
 import javax.transaction.xa.XAResource;
 import org.apache.log4j.Logger;
 
-//@Connector(
-//        reauthenticationSupport = false,
-//        transactionSupport = TransactionSupport.TransactionSupportLevel.NoTransaction,
-//        displayName = "BeanstalkdConnector",
-//        vendorName = "MageFlow",
-//        version = "1.0"
-//)
+@Connector(
+        reauthenticationSupport = false,
+        transactionSupport = TransactionSupport.TransactionSupportLevel.NoTransaction,
+        displayName = "BeanstalkdConnector",
+        vendorName = "MageFlow",
+        version = "1.0",
+        authMechanisms = @AuthenticationMechanism(
+                authMechanism = "BasicPassword",
+                credentialInterface = AuthenticationMechanism.CredentialInterface.PasswordCredential)
+)
+@ConnectionDefinition(
+        connection = BeanstalkdConnection.class,
+        connectionFactory = BeanstalkdConnectionFactory.class,
+        connectionImpl = BeanstalkdConnectionImpl.class,
+        connectionFactoryImpl = BeanstalkdConnectionFactoryImpl.class
+)
 public class BeanstalkdConnector implements ResourceAdapter {
 
     /**

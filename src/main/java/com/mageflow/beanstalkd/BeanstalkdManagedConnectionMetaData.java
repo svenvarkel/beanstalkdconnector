@@ -26,12 +26,12 @@ public class BeanstalkdManagedConnectionMetaData implements ManagedConnectionMet
 
     @Override
     public int getMaxConnections() throws ResourceException {
-        return 1000;
+        return 0;
     }
 
     @Override
     public String getUserName() throws ResourceException {
-        return "";
+        return "N/A";
     }
 
 }

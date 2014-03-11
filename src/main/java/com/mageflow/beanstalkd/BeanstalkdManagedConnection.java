@@ -41,6 +41,7 @@ public class BeanstalkdManagedConnection extends ClientImpl implements javax.res
 
     @Override
     public Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
+        LOG.debug(String.format("Connecting to %s:%s", mcf.getHostname(), mcf.getPort()));
         connection = new BeanstalkdConnectionImpl(this, mcf);
         return connection;
     }

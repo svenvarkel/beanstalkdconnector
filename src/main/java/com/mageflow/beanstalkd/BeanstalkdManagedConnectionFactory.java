@@ -32,14 +32,41 @@ public class BeanstalkdManagedConnectionFactory implements ManagedConnectionFact
 
     private PrintWriter logWriter;
 
-    private String hostname = "127.0.0.1";
+    private String hostname = "queue01.mageflow";
     private Integer port = 11300;
     private Boolean useBlockingIO = false;
     private Boolean useUniqueConnectionPerThread = false;
+    private String userName;
+    private String password;
+    private String user;
 
     public BeanstalkdManagedConnectionFactory() {
         this.resourceAdapter = null;
         this.logWriter = null;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     @Override
@@ -54,7 +81,8 @@ public class BeanstalkdManagedConnectionFactory implements ManagedConnectionFact
 
     @Override
     public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
-//        LOG.info("Created managed beanstalkd connection");
+        LOG.debug(subject.toString());
+        LOG.info("Created managed beanstalkd connection");
         return new BeanstalkdManagedConnection(this);
     }
 

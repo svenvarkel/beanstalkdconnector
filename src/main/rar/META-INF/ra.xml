@@ -9,7 +9,7 @@
     <version>1.0</version>
     <license>
         <description>MageFlow EULA</description>
-        <license-required>false</license-required>
+        <license-required>true</license-required>
     </license>
     <resourceadapter>
         <managedconnectionfactory-class>com.mageflow.beanstalkd.BeanstalkdManagedConnectionFactory</managedconnectionfactory-class>
@@ -18,6 +18,10 @@
         <connection-interface>com.mageflow.beanstalkd.interfaces.BeanstalkdConnection</connection-interface>
         <connection-impl-class>com.mageflow.beanstalkd.BeanstalkdConnectionImpl</connection-impl-class>
         <transaction-support>NoTransaction</transaction-support>
+        <authentication-mechanism>
+            <authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+            <credential-interface>javax.resource.spi.security.PasswordCredential</credential-interface>
+        </authentication-mechanism>
         <reauthentication-support>false</reauthentication-support>
     </resourceadapter>
 </connector>

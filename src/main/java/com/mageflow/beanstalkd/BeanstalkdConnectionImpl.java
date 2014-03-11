@@ -35,7 +35,8 @@ public class BeanstalkdConnectionImpl extends ClientImpl implements BeanstalkdCo
     private Integer connectionId = 0;
 
     public BeanstalkdConnectionImpl(BeanstalkdManagedConnection mc, BeanstalkdManagedConnectionFactory mcf) {
-        super(mcf.getHostname(), mcf.getPort(), mcf.isUseBlockingIO());
+//        super(mcf.getHostname(), mcf.getPort(), mcf.isUseBlockingIO());
+        super("10.0.2.4", 11300, false);
         this.setUniqueConnectionPerThread(mcf.isUseUniqueConnectionPerThread());
         this.mc = mc;
         this.mcf = mcf;
