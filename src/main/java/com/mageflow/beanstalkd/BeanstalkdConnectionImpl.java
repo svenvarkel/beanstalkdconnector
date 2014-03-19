@@ -48,7 +48,7 @@ public class BeanstalkdConnectionImpl extends ClientImpl implements BeanstalkdCo
     /**
      * ManagedConnectionFactory
      */
-    private BeanstalkdManagedConnectionFactory mcf;
+    private final BeanstalkdManagedConnectionFactory mcf;
     Socket socket = null;
     private Integer connectionId = 0;
 
@@ -69,16 +69,15 @@ public class BeanstalkdConnectionImpl extends ClientImpl implements BeanstalkdCo
 
     @Override
     public void close() {
-        if (mc != null) {
-            mc.closeHandle(this);
-        }
         try {
-            if (this.socket != null) {
-                this.socket.close();
-            }
+            super.close();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public Boolean isBusy() {
+        return true;
     }
 
     @Override

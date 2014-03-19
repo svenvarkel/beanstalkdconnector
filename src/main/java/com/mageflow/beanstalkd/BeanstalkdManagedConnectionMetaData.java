@@ -62,7 +62,7 @@ public class BeanstalkdManagedConnectionMetaData implements ManagedConnectionMet
      */
     @Override
     public int getMaxConnections() throws ResourceException {
-        return 0;
+        return 1;
     }
 
     /**

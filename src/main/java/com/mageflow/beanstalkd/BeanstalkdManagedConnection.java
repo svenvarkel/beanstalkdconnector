@@ -87,8 +87,9 @@ public class BeanstalkdManagedConnection implements javax.resource.spi.ManagedCo
     @Override
     public void destroy() throws ResourceException {
         if (connection != null) {
-            ((BeanstalkdConnection) connection).setManagedConnection(null);
             ((BeanstalkdConnection) connection).close();
+            ((BeanstalkdConnection) connection).setManagedConnection(null);
+            LOG.debug("Closed connection #" + ((BeanstalkdConnectionImpl) connection).getConnectionId());
             connection = null;
         }
     }
@@ -99,7 +100,7 @@ public class BeanstalkdManagedConnection implements javax.resource.spi.ManagedCo
      */
     @Override
     public void cleanup() throws ResourceException {
-        ((BeanstalkdConnectionImpl) this.connection).quit();
+//        ((BeanstalkdConnectionImpl) this.connection).quit();
     }
 
     /**
@@ -139,8 +140,7 @@ public class BeanstalkdManagedConnection implements javax.resource.spi.ManagedCo
 
     /**
      *
-     * @return
-     * @throws ResourceException
+     * @return @throws ResourceException
      */
     @Override
     public XAResource getXAResource() throws ResourceException {
@@ -149,8 +149,7 @@ public class BeanstalkdManagedConnection implements javax.resource.spi.ManagedCo
 
     /**
      *
-     * @return
-     * @throws ResourceException
+     * @return @throws ResourceException
      */
     @Override
     public LocalTransaction getLocalTransaction() throws ResourceException {
@@ -159,8 +158,7 @@ public class BeanstalkdManagedConnection implements javax.resource.spi.ManagedCo
 
     /**
      *
-     * @return
-     * @throws ResourceException
+     * @return @throws ResourceException
      */
     @Override
     public ManagedConnectionMetaData getMetaData() throws ResourceException {
@@ -179,8 +177,7 @@ public class BeanstalkdManagedConnection implements javax.resource.spi.ManagedCo
 
     /**
      *
-     * @return
-     * @throws ResourceException
+     * @return @throws ResourceException
      */
     @Override
     public PrintWriter getLogWriter() throws ResourceException {

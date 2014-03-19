@@ -62,7 +62,6 @@ public class BeanstalkdConnectionFactoryImpl implements BeanstalkdConnectionFact
      */
     @Override
     public BeanstalkdConnection getConnection() throws ResourceException {
-
         return (BeanstalkdConnection) connectionManager.allocateConnection(mcf, null);
 
     }
