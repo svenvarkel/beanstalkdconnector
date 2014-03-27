@@ -67,6 +67,30 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+
+                <configuration>
+                    <glassfishDirectory>/srv/glassfish</glassfishDirectory>
+                    <user>deployer</user>
+                    <passwordFile>/home/bamboo/.glassfish</passwordFile>
+                    <domain>
+                        <name>domain1</name>
+                        <adminPort>4848</adminPort>
+                        <reuse>false</reuse>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.artifactId}-${project.version}</name>
+                            <artifact>
+                                ${project.build.directory}/${project.artifactId}-${project.version}.rar
+                            </artifact>
+                        </component>
+                    </components>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
